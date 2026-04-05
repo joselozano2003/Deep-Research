@@ -53,3 +53,34 @@ export type Attachment = {
   url: string;
   contentType: string;
 };
+
+// Deep Research types
+export type SubQuestion = { id: string; question: string; focus: string };
+
+export type Claim = { text: string; url: string; title: string };
+
+export type ResearchFindings = {
+  subQuestionId: string;
+  question: string;
+  claims: Claim[];
+  summary: string;
+};
+
+export type Conflict = {
+  topic: string;
+  claimA: string;
+  claimB: string;
+  sourceA: string;
+  sourceB: string;
+};
+
+export type AgentEvent =
+  | { type: "decompose"; status: "start" | "done"; data?: SubQuestion[] }
+  | {
+      type: "research";
+      status: "start" | "tool" | "done";
+      subQuestion: string;
+      detail?: string;
+    }
+  | { type: "conflict"; status: "start" | "done"; count?: number }
+  | { type: "synthesize"; status: "start" };
